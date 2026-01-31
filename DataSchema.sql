@@ -3,7 +3,7 @@ CREATE TABLE app_user (
     user_name VARCHAR(100) NOT NULL,
     user_surname VARCHAR(100) NOT NULL,
     user_status VARCHAR(20)
-        CHECK (user_status IN ('online', 'offline'))
+    CHECK (user_status IN ('online', 'offline'))
 );
 
 CREATE TABLE humidity_record (
