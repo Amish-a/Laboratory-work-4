@@ -1,4 +1,7 @@
-print("Humidity Monitoring System")
-def main():
- print("humidity monitoring system")
-if __name__=="__main__":main()
+def main() -> None:
+    print("Humidity Monitoring System")
+
+
+if __name__ == "__main__":
+    main()
+
