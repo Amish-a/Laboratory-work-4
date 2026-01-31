@@ -1,0 +1,72 @@
+@startuml
+
+' ---------- Стиль діаграми ----------
+skinparam node {
+  BackgroundColor LightBlue
+  BorderColor DarkBlue
+  FontColor Black
+  FontSize 12
+}
+
+skinparam database {
+  BackgroundColor LightYellow
+  BorderColor Goldenrod
+  FontColor Black
+  FontSize 12
+}
+
+skinparam artifact {
+  BackgroundColor LightGreen
+  BorderColor DarkGreen
+  FontColor Black
+  FontSize 12
+}
+
+' ---------- Вузли ----------
+node "Користувацький пристрій\n(ПК / Смартфон)" as UserDevice {
+  artifact "UI: Контроль вологості\n(UI_Humidity)" as UI_Humidity
+  artifact "UI: Безпека праці\n(UI_Safety)" as UI_Safety
+  artifact "UI: Танці та соціальні зв'язки\n(UI_Dance)" as UI_Dance
+}
+
+node "Сервер додатку\n(App Server)" as AppServer {
+  artifact "BL: Логіка вологості\n(Logic_Humidity)" as Logic_Humidity
+  artifact "BL: Логіка безпеки\n(Logic_Safety)" as Logic_Safety
+  artifact "BL: Логіка танців\n(Logic_Dance)" as Logic_Dance
+}
+
+database "База даних\n(PostgreSQL)" as DB {
+  artifact "DB_Вологість\n(DB_Humidity)" as DB_Humidity
+  artifact "DB_Безпека\n(DB_Safety)" as DB_Safety
+  artifact "DB_Танці\n(DB_Dance)" as DB_Dance
+}
+
+' ---------- Блок: СУБД та модель даних ----------
+node "СУБД" as DBInfo {
+  artifact "PostgreSQL\nТип моделі: Реляційна" as DB_Type
+}
+
+' ---------- Блок: Мови програмування ----------
+node "Мови програмування" as LangInfo {
+  artifact "Back-end:\nJava / Python / C# / Node.js" as LangBackend
+  artifact "Front-end:\nJavaScript, HTML, CSS" as LangFrontend
+  artifact "Mobile:\nKotlin / Swift" as LangMobile
+}
+
+' ---------- Зв'язки ----------
+UserDevice --> AppServer : REST / HTTP
+AppServer --> DB : CRUD операції
+
+UI_Humidity --> Logic_Humidity
+UI_Safety --> Logic_Safety
+UI_Dance --> Logic_Dance
+
+Logic_Humidity --> DB_Humidity
+Logic_Safety --> DB_Safety
+Logic_Dance --> DB_Dance
+
+DBInfo -[dashed]-> DB : використовувана СУБД
+LangInfo -[dashed]-> AppServer : мови реалізації
+
+@enduml
+
