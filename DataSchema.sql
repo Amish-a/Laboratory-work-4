@@ -1,14 +1,14 @@
-create table AppUser(
-userId serial primary key,
-UserName varchar(100) not null,
-UserSurname varchar(100) not null,
-userStatus varchar(20) check(userStatus in('online','offline'))
+CREATE TABLE app_user (
+    user_id SERIAL PRIMARY KEY,
+    user_name VARCHAR(100) NOT NULL,
+    user_surname VARCHAR(100) NOT NULL,
+    user_status VARCHAR(20)
+        CHECK (user_status IN ('online', 'offline'))
 );
 
-create table humidityRecord(
-humId serial primary key,
-userId int,
-humLevel smallint check(humLevel>100 or humLevel<0),
-measuredAt timestamp not null,
-foreign key(userId) references AppUser(userId)
+CREATE TABLE humidity_record (
+    hum_id SERIAL PRIMARY KEY,
+    user_id INTEGER REFERENCES app_user (user_id),
+    hum_level SMALLINT CHECK (hum_level BETWEEN 0 AND 100),
+    measured_at TIMESTAMP NOT NULL
 );
